@@ -1,4 +1,5 @@
 import { pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
+import { defineConfig } from "drizzle-kit";
 
 export const MockInterview = pgTable('mockInterview', {
     id: serial('id').primaryKey(),

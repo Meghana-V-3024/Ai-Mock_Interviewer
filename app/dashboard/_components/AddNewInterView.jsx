@@ -14,10 +14,13 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { chatSession } from '@/utils/GeminiAiModel'
 import { LoaderCircle } from 'lucide-react'
-import { db } from '@/utils/db'
 import { MockInterview } from '@/utils/schema'
-
-  
+import { v4 as uuidv4 } from 'uuid';
+import { useUser } from '@clerk/nextjs'
+import moment from 'moment'
+// Adjust import
+import { db } from '@/utils/db'; // Named import
+import { useRouter } from 'next/router'
 
 function AddNewInterView() {
     const [openDailog,setOpenDailog]=useState(false)
@@ -25,6 +28,9 @@ function AddNewInterView() {
     const [jobDesc,setJobDesc]=useState();
     const [jobExperience,setExperience]=useState();
     const [loading,setLoading]=useState(false);
+    const [jsonResponse,setJsonRespone] = useState([]);
+    const {user} = useUser();
+    const router = useRouter();
 
 
     const onSubmit=async(e)=>{
@@ -37,7 +43,32 @@ function AddNewInterView() {
       const result =await chatSession.sendMessage(InputPrompt);
       const MockJsonResp = (result.response.text()).replace("```json" ,"").replace("```","");
       console.log(JSON.parse(MockJsonResp));
+      setJsonRespone(MockJsonResp);
+
+      if(MockJsonResp){
+      const resp = await db.insert(MockInterview)
+      .values({
+          mockId:uuidv4(),
+          jsonMockResp:MockJsonResp,
+          jobPosition:jobPosition,
+          jobDesc: jobDesc,
+          jobExperience:jobExperience,
+          createdBy:user?.primaryEmailAddress?.emailAddress,
+          createdAt:moment().format('DD-MM-yyyy')
+      }).returning({mockId:MockInterview.mockId});
+
+      console.log("Insert ID: ",resp);
+      if(resp)
+      {
+        setOpenDailog(false);
+        router.push('/dashboard/interview/'+resp[0]?.mockId);
+      }
+    }
+    else{
+      console.log("Error!!");
+    }
       setLoading(false);
+
 
     }
 
@@ -76,14 +107,14 @@ function AddNewInterView() {
             </div>
             <div className='my-3'>
                 <label>Years of Experience</label>
-                <Input placeholder="5" type="number"  max="100" required 
+                <Input placeholder="Ex.5" type="number"  max="100" required 
                 onChange={(event)=>setExperience(event.target.value)} 
                 />
             </div>  
         </div>
     
         <div className='flex gap-5 justify-end'>
-            <Button type="button" variant="ghost" onClick={()=>setOpenDailog(false)}> cancel </Button>
+            <Button type="button" variant="ghost" onClick={()=>setOpenDailog(false)}> Cancel </Button>
             <Button type="submit" disabled={loading}> 
               {loading?
                 <>
