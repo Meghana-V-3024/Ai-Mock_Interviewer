@@ -35,7 +35,7 @@ function Feedback({ params }) {
       <h2 className="text-2xl font-bold text-green-500">Congratulation! </h2>
       <h2 className="font-bold text-2xl">Here is your Information</h2>
       <h2 className="text-primary text-lg my-3">
-        Your overall Reting: <strong>7/10</strong>
+        Your overall Rating: <strong>7/10</strong>
       </h2>
 
       <h2 className="text-sm text-gray-500">

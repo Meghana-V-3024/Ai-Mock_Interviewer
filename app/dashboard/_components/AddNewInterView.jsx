@@ -127,66 +127,66 @@ function AddNewInterView() {
               Tell us more about your job Interview
             </DialogTitle>
             <DialogDescription>
-              <form onSubmit={onSubmit}>
-                <div>
-                  <h2>
-                    Add Details about your Job position/role, Job description
-                    and years of experience
-                  </h2>
+            <form onSubmit={onSubmit}>
+  <div>
+    <h2 className="font-semibold">
+      <strong>Add Details about your Job position/role, Job description and years of experience</strong>
+    </h2>
 
-                  {error && (
-                    <div className="text-red-500 my-2 text-sm">{error}</div>
-                  )}
+    {error && (
+      <div className="text-red-500 my-2 text-sm">{error}</div>
+    )}
 
-                  <div className="mt-7 my-3">
-                    <label>Job Role/Job Position</label>
-                    <Input
-                      placeholder="Ex: Full Stack Developer"
-                      required
-                      onChange={(event) => setJobPosition(event.target.value)}
-                    />
-                  </div>
+    <div className="mt-7 my-3">
+      <label className="font-semibold">Job Role/Job Position</label>
+      <Input
+        placeholder="Ex: Full Stack Developer"
+        required
+        onChange={(event) => setJobPosition(event.target.value)}
+      />
+    </div>
 
-                  <div className="my-3">
-                    <label>Job Description/Tech Stack (In Short)</label>
-                    <Textarea
-                      placeholder="Ex: React, Angular, NextJs, Mysql"
-                      required
-                      onChange={(event) => setJobDesc(event.target.value)}
-                    />
-                  </div>
-                  <div className="my-3">
-                    <label>Years of Experience</label>
-                    <Input
-                      placeholder="Ex: 5"
-                      type="number"
-                      max="100"
-                      required
-                      onChange={(event) => setExperience(event.target.value)}
-                    />
-                  </div>
-                </div>
+    <div className="my-3">
+      <label className="font-semibold">Job Description/Tech Stack (In Short)</label>
+      <Textarea
+        placeholder="Ex: React, Angular, NextJs, Mysql"
+        required
+        onChange={(event) => setJobDesc(event.target.value)}
+      />
+    </div>
+    
+    <div className="my-3">
+      <label className="font-semibold">Years of Experience</label>
+      <Input
+        placeholder="Ex: 5"
+        type="number"
+        max="100"
+        required
+        onChange={(event) => setExperience(event.target.value)}
+      />
+    </div>
+  </div>
 
-                <div className="flex gap-5 justify-end">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    onClick={() => setOpenDailog(false)}
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" disabled={loading}>
-                    {loading ? (
-                      <div className="flex items-center gap-2">
-                        <LoaderCircle className="animate-spin" />
-                        <span>Generating From AI</span>
-                      </div>
-                    ) : (
-                      "Start Interview"
-                    )}
-                  </Button>
-                </div>
-              </form>
+  <div className="flex gap-5 justify-end">
+    <Button
+      type="button"
+      variant="ghost"
+      onClick={() => setOpenDailog(false)}
+    >
+      Cancel
+    </Button>
+    <Button type="submit" disabled={loading}>
+      {loading ? (
+        <div className="flex items-center gap-2">
+          <LoaderCircle className="animate-spin" />
+          <span>Generating From AI</span>
+        </div>
+      ) : (
+        "Start Interview"
+      )}
+    </Button>
+  </div>
+</form>
             </DialogDescription>
           </DialogHeader>
         </DialogContent>

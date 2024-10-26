@@ -57,10 +57,9 @@ function Interview({ params }) {
               <strong>Information</strong>
             </h2>
             <h2 className="mt-3 text-yellow-600">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-              vitae quam sint, ipsa facere enim. Nisi iste, blanditiis
-              perferendis autem officia maiores iure amet molestias, qui,
-              deleniti expedita soluta non.
+            Enable Video Web Cam and Microphone to Start your AI Generated Mock Interview,
+            It Has 5 question which you can answer and at the last you will get the report on the basis of your answer.
+            NOTE: We never record your video, Web cam access you can disable at any time If you want
             </h2>
           </div>
         </div>
